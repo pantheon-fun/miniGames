@@ -21,7 +21,7 @@ int rgbStart(char color, int number) // Возвращает индекс нап
         innerLeds += 4;
         retVal = 2;
     } else if (color == 'p') {
-        innerLeds += 6;
+        innerLeds += 5;
     }
     if(number == 1){
         leds1 += innerLeds;
@@ -43,21 +43,21 @@ right = tmp;
 
 void setup() {
     Serial.begin(9600);
-    getShot(7, &Serial, shotArr);
+    //getShot(7, &Serial, shotArr);
     randomSeed(analogRead(5)); // Случайный сид рандома
     for(size_t i = 0; i < 4; i++) { 
         swap(arrColors[i], arrColors[random(0, 3)]);
     }
     for(int i = 0; i < 4; i++){
-        rgbStart(arrColors[i], i);
+        rgbStart(arrColors[i], i+1);
+        Serial.println(arrColors[i]);
     }
-    digitalWrite(13, LOW);
-    shiftOut(11, 12, MSBFIRST, leds1);
-    digitalWrite(13, HIGH);
-    digitalWrite(10, LOW);
-    shiftOut(8, 9, MSBFIRST, leds2);
-    digitalWrite(10, HIGH);
-    digitalWrite(2, LOW);
+    digitalWrite(6, LOW);
+    shiftOut(9, 10, MSBFIRST, leds1);
+    shiftOut(7, 8, MSBFIRST, leds2);
+//    shiftOut(11, 12, MSBFIRST, leds1);
+//    shiftOut(9, 10, MSBFIRST, leds2);
+    digitalWrite(6, HIGH);
 }
 
 
@@ -66,6 +66,7 @@ int checkResist(int pin, char color){
     if (raw) {
         float Vout = (raw*Vin)/1024.0;
         float R2 = R1*((Vin/Vout)-1);
+        Serial.println(R2);
         delay(50);
         if(color == 'r'){
             if(R2 < 400) return 1;
@@ -104,13 +105,14 @@ void loop() {
     }
     if(sum == 4){
         byte arr[2];
-        getShot(7, &Serial, shotArr);
-        if(arr[0] == shotArr[0] && arr[1] == shotArr[1]){
-            digitalWrite(2, HIGH); // Светодиод что всё выполнено
-            delay(10000000000); // Остановка "навсегда"
-        } else {
-            blink(2);
-            resetFunc();
-        }
+        digitalWrite(2, HIGH);
+        //getShot(7, &Serial, shotArr);
+        //if(arr[0] == shotArr[0] && arr[1] == shotArr[1]){
+            //digitalWrite(2, HIGH); // Светодиод что всё выполнено
+            //delay(10000000000); // Остановка "навсегда"
+        //} else {
+            //blink(2);
+            //resetFunc();
+        //}
     }
 }
