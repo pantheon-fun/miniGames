@@ -5,6 +5,7 @@ char arrColors[4] = {'r', 'g', 'b', 'p'};
 float Vin = 5.0;
 int R1 = 10000;
 byte shotArr[2];
+int sum;
 
 
 int rgbStart(char color, int number) // Возвращает индекс напряжения
@@ -66,20 +67,22 @@ int checkResist(int pin, char color){
     if (raw) {
         float Vout = (raw*Vin)/1024.0;
         float R2 = R1*((Vin/Vout)-1);
-        Serial.println(R2);
+        Serial.println((String)pin + " " + (String)R2);
+        //Serial.println("V2 = " + (String)Vin);
+        //Serial.println("raw data = " + (String)raw);
         delay(50);
         if(color == 'r'){
-            if(R2 < 400) return 1;
+            if(R2 < 400) {return 1;}
         } else if (color == 'g'){
-            if(R2 > 600 && R2 < 1800) return 1;
+            if(R2 > 600 && R2 < 1800){return 1;}
         } else if (color == 'b'){
-            if(R2 > 8000 && R2 < 12000) return 1;
+            if(R2 > 8000 && R2 < 12000){return 1;}
         } else if (color == 'p'){
-            if(R2 > 60000) return 1;
-        } else {
+            if(R2 > 60000){return 1;}
+        } 
+    } else {
             return 0;
         }
-    }
 }
 
 void blink(int pin){
@@ -99,13 +102,19 @@ void loop() {
     // g - 1k ohm
     // b - 10k ohm
     // p - 100k ohm
-    int sum = 0;
+    sum = 0;
     for(int i = 0; i < 4; i++){
-        sum += checkResist(i, arrColors[i]);
+        int add = checkResist(i, arrColors[i]);
+        sum += add;
+        Serial.println("Add = " + (String)add + "; sum = " + (String)sum);
+        add = 0;
     }
+    Serial.println("Sum is " + (String)sum);
     if(sum == 4){
         byte arr[2];
         digitalWrite(2, HIGH);
+        Serial.println("WINNER WINNER CHICKEN DINNER");
+        delay(10000000000);
         //getShot(7, &Serial, shotArr);
         //if(arr[0] == shotArr[0] && arr[1] == shotArr[1]){
             //digitalWrite(2, HIGH); // Светодиод что всё выполнено
@@ -115,4 +124,5 @@ void loop() {
             //resetFunc();
         //}
     }
+    delay(1000);
 }
