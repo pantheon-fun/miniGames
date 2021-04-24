@@ -1,3 +1,11 @@
+/* 
+ * Project name         CardReader
+ * Author:              Lanity Roshoose
+ * Date of mod.         17.04.2021
+ * Version              beta 1.1
+ */
+
+
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <PantheonDuino.h>
