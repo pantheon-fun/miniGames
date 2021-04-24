@@ -1,0 +1,72 @@
+<circuit speed="1000000" reactStep="50" animate="0" type="simulide_0.4" noLinAcc="5">
+ 
+LedBar-14: 
+<item Show_id="false" labely="-44" y="-332" objectName="LedBar-14" Grounded="true" MaxCurrent="0.029999999999999999" valLabely="0" valLabRot="0" Color="0" labelrot="0" Threshold="2.3999999999999999" Resistance="0.59999999999999998" x="-544" valLabelx="0" hflip="1" itemtype="LedBar" vflip="1" labelx="-16" Size="8" id="LedBar-14" rotation="-90"/>
+ 
+Push-11: 
+<item Show_id="false" labely="-24" Norm_Close="false" Key="b" y="-300" objectName="Push-11" valLabely="0" Poles="1" valLabRot="0" labelrot="0" x="-496" valLabelx="0" hflip="1" itemtype="Push" vflip="1" labelx="-16" id="Push-11" rotation="-90"/>
+ 
+ResistorDip-2: 
+<item Show_id="false" labely="-40" y="-300" objectName="ResistorDip-2" valLabely="-26" valLabRot="90" labelrot="0" Resistance="100" x="-536" valLabelx="5" hflip="1" itemtype="ResistorDip" vflip="1" labelx="-24" Show_res="true" Size="8" id="ResistorDip-2" Unit=" Ω" rotation="90"/>
+ 
+Arduino Nano-1: 
+<item Show_id="true" labely="-21" y="-336" objectName="Arduino Nano-1" eeprom="255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255" Logic_Symbol="false" Auto_Load="false" Init_gdb="false" valLabely="0" valLabRot="0" labelrot="0" x="-556" valLabelx="0" Mhz="16" hflip="1" itemtype="Arduino" Program="../../Button/Button.ino.eightanaloginputs.hex" vflip="1" labelx="100" id="Arduino Nano-1" rotation="90"/>
+ 
+Connector-3: 
+<item Show_id="false" endpinid="ResistorDip-2-resistor0-ePin1" labely="-24" y="-284" objectName="Connector-3" valLabely="0" startpinid="Arduino Nano-1-PD4" valLabRot="0" labelrot="0" x="-512" valLabelx="0" hflip="1" itemtype="Connector" vflip="1" labelx="-16" pointList="-512,-284,-512,-284" enodeid="enode-3" id="Connector-3" rotation="0"/>
+ 
+Connector-4: 
+<item Show_id="false" endpinid="ResistorDip-2-resistor1-ePin3" labely="-24" y="-284" objectName="Connector-4" valLabely="0" startpinid="Arduino Nano-1-PD5" valLabRot="0" labelrot="0" x="-520" valLabelx="0" hflip="1" itemtype="Connector" vflip="1" labelx="-16" pointList="-520,-284,-520,-284" enodeid="enode-4" id="Connector-4" rotation="0"/>
+ 
+Connector-5: 
+<item Show_id="false" endpinid="ResistorDip-2-resistor2-ePin5" labely="-24" y="-284" objectName="Connector-5" valLabely="0" startpinid="Arduino Nano-1-PD6" valLabRot="0" labelrot="0" x="-528" valLabelx="0" hflip="1" itemtype="Connector" vflip="1" labelx="-16" pointList="-528,-284,-528,-284" enodeid="enode-5" id="Connector-5" rotation="0"/>
+ 
+Connector-6: 
+<item Show_id="false" endpinid="ResistorDip-2-resistor3-ePin7" labely="-24" y="-284" objectName="Connector-6" valLabely="0" startpinid="Arduino Nano-1-PD7" valLabRot="0" labelrot="0" x="-536" valLabelx="0" hflip="1" itemtype="Connector" vflip="1" labelx="-16" pointList="-536,-284,-536,-284" enodeid="enode-6" id="Connector-6" rotation="0"/>
+ 
+Connector-7: 
+<item Show_id="false" endpinid="ResistorDip-2-resistor4-ePin9" labely="-24" y="-284" objectName="Connector-7" valLabely="0" startpinid="Arduino Nano-1-PB0" valLabRot="0" labelrot="0" x="-544" valLabelx="0" hflip="1" itemtype="Connector" vflip="1" labelx="-16" pointList="-544,-284,-544,-284" enodeid="enode-7" id="Connector-7" rotation="0"/>
+ 
+Connector-8: 
+<item Show_id="false" endpinid="ResistorDip-2-resistor5-ePin11" labely="-24" y="-284" objectName="Connector-8" valLabely="0" startpinid="Arduino Nano-1-PB1" valLabRot="0" labelrot="0" x="-552" valLabelx="0" hflip="1" itemtype="Connector" vflip="1" labelx="-16" pointList="-552,-284,-552,-284" enodeid="enode-8" id="Connector-8" rotation="0"/>
+ 
+Connector-9: 
+<item Show_id="false" endpinid="ResistorDip-2-resistor6-ePin13" labely="-24" y="-284" objectName="Connector-9" valLabely="0" startpinid="Arduino Nano-1-PB2" valLabRot="0" labelrot="0" x="-560" valLabelx="0" hflip="1" itemtype="Connector" vflip="1" labelx="-16" pointList="-560,-284,-560,-284" enodeid="enode-9" id="Connector-9" rotation="0"/>
+ 
+Connector-10: 
+<item Show_id="false" endpinid="ResistorDip-2-resistor7-ePin15" labely="-24" y="-284" objectName="Connector-10" valLabely="0" startpinid="Arduino Nano-1-PB3" valLabRot="0" labelrot="0" x="-568" valLabelx="0" hflip="1" itemtype="Connector" vflip="1" labelx="-16" pointList="-568,-284,-568,-284" enodeid="enode-10" id="Connector-10" rotation="0"/>
+ 
+Connector-12: 
+<item Show_id="false" endpinid="Push-11-pinP0" labely="-24" y="-284" objectName="Connector-12" valLabely="0" startpinid="Arduino Nano-1-PD2" valLabRot="0" labelrot="0" x="-496" valLabelx="0" hflip="1" itemtype="Connector" vflip="1" labelx="-16" pointList="-496,-284,-496,-284" enodeid="enode-12" id="Connector-12" rotation="0"/>
+ 
+Connector-13: 
+<item Show_id="false" endpinid="Push-11-switch0pinN" labely="-24" y="-284" objectName="Connector-13" valLabely="0" startpinid="Arduino Nano-1-GND0" valLabRot="0" labelrot="0" x="-488" valLabelx="0" hflip="1" itemtype="Connector" vflip="1" labelx="-16" pointList="-488,-284,-488,-316,-496,-316" enodeid="enode-13" id="Connector-13" rotation="0"/>
+ 
+Connector-15: 
+<item Show_id="false" endpinid="LedBar-14-led0-pinP" labely="-24" y="-316" objectName="Connector-15" valLabely="0" startpinid="ResistorDip-2-resistor7-ePin14" valLabRot="0" labelrot="0" x="-568" valLabelx="0" hflip="1" itemtype="Connector" vflip="1" labelx="-16" pointList="-568,-316,-568,-316" enodeid="enode-15" id="Connector-15" rotation="0"/>
+ 
+Connector-16: 
+<item Show_id="false" endpinid="ResistorDip-2-resistor6-ePin12" labely="-24" y="-316" objectName="Connector-16" valLabely="0" startpinid="LedBar-14-led1-pinP" valLabRot="0" labelrot="0" x="-560" valLabelx="0" hflip="1" itemtype="Connector" vflip="1" labelx="-16" pointList="-560,-316,-560,-316" enodeid="enode-16" id="Connector-16" rotation="0"/>
+ 
+Connector-17: 
+<item Show_id="false" endpinid="LedBar-14-led2-pinP" labely="-24" y="-316" objectName="Connector-17" valLabely="0" startpinid="ResistorDip-2-resistor5-ePin10" valLabRot="0" labelrot="0" x="-552" valLabelx="0" hflip="1" itemtype="Connector" vflip="1" labelx="-16" pointList="-552,-316,-552,-316" enodeid="enode-17" id="Connector-17" rotation="0"/>
+ 
+Connector-18: 
+<item Show_id="false" endpinid="ResistorDip-2-resistor4-ePin8" labely="-24" y="-316" objectName="Connector-18" valLabely="0" startpinid="LedBar-14-led3-pinP" valLabRot="0" labelrot="0" x="-544" valLabelx="0" hflip="1" itemtype="Connector" vflip="1" labelx="-16" pointList="-544,-316,-544,-316" enodeid="enode-18" id="Connector-18" rotation="0"/>
+ 
+Connector-19: 
+<item Show_id="false" endpinid="LedBar-14-led4-pinP" labely="-24" y="-316" objectName="Connector-19" valLabely="0" startpinid="ResistorDip-2-resistor3-ePin6" valLabRot="0" labelrot="0" x="-536" valLabelx="0" hflip="1" itemtype="Connector" vflip="1" labelx="-16" pointList="-536,-316,-536,-316" enodeid="enode-19" id="Connector-19" rotation="0"/>
+ 
+Connector-20: 
+<item Show_id="false" endpinid="ResistorDip-2-resistor2-ePin4" labely="-24" y="-316" objectName="Connector-20" valLabely="0" startpinid="LedBar-14-led5-pinP" valLabRot="0" labelrot="0" x="-528" valLabelx="0" hflip="1" itemtype="Connector" vflip="1" labelx="-16" pointList="-528,-316,-528,-316" enodeid="enode-20" id="Connector-20" rotation="0"/>
+ 
+Connector-21: 
+<item Show_id="false" endpinid="LedBar-14-led6-pinP" labely="-24" y="-316" objectName="Connector-21" valLabely="0" startpinid="ResistorDip-2-resistor1-ePin2" valLabRot="0" labelrot="0" x="-520" valLabelx="0" hflip="1" itemtype="Connector" vflip="1" labelx="-16" pointList="-520,-316,-520,-316" enodeid="enode-21" id="Connector-21" rotation="0"/>
+ 
+Connector-22: 
+<item Show_id="false" endpinid="ResistorDip-2-resistor0-ePin0" labely="-24" y="-316" objectName="Connector-22" valLabely="0" startpinid="LedBar-14-led7-pinP" valLabRot="0" labelrot="0" x="-512" valLabelx="0" hflip="1" itemtype="Connector" vflip="1" labelx="-16" pointList="-512,-316,-512,-316" enodeid="enode-22" id="Connector-22" rotation="0"/>
+ 
+PlotterWidget: 
+<item minimized="false" height="200" font="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" windowIconText="" acceptDrops="false" Tracks="1" y="0" pos="" MaxVolt="500" windowModified="false" x="0" windowOpacity="1" sizeHint="" maximumHeight="200" styleSheet="" modal="false" windowFilePath="" windowModality="0" windowTitle="" statusTip="" Scale="1" normalGeometry="" enabled="true" palette="" fullScreen="false" accessibleName="" sizeIncrement="" childrenRegion="" maximumSize="" isActiveWindow="true" size="" whatsThis="" focus="false" inputMethodHints="0" locale="" minimumWidth="200" autoFillBackground="false" rect="" maximized="false" minimumSizeHint="" maximumWidth="1000" visible="false" toolTip="" MinVolt="-500" geometry="" baseSize="" objectName="PlotterWidget" frameGeometry="" minimumHeight="200" focusPolicy="0" accessibleDescription="" contextMenuPolicy="1" mouseTracking="false" updatesEnabled="true" cursor="" windowIcon="" sizePolicy="" minimumSize="" toolTipDuration="-1" itemtype="Plotter" width="200" frameSize="" layoutDirection="0" childrenRect=""/>
+ 
+</circuit>
