@@ -1,5 +1,5 @@
 /* 
- * Project name         Button
+ * Project name         tumblCheck
  * Author:              Lanity Roshoose
  * Date of mod.         22.04.2021
  * Version              beta 1.3
