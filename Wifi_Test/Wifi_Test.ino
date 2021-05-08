@@ -2,40 +2,52 @@
 
 SoftwareSerial WIFI_SERIAL(8, 9);
 #define TIMEOUT 5000 
-#define IP "10.0.0.13"
-#define PORT 10596
+String IP = "10.0.0.13"
+String PORT = "10596"
 
 void setup() {
+  String reply;
   // put your setup code here, to run once:
   Serial.begin(115200);
   WIFI_SERIAL.begin(115200);
-
+  WIFI_SERIAL.setTimeout(5000);
   //config
-  if(!SendCommand("AT", "OK")){
-    Serial.println("Wifi not working properly");
-  }
+  restore:
   SendCommand("AT+RESTORE", "OK");
+  restoreRead:
+  while(WIFI_SERIAL.available()){
+    Serial.println("Reading data");
+    String res = WIFI_SERIAL.readString();
+    if(res == "OK" or res == "OK\r" or res == "OK\r\n" or res == "OK\n"){
+      goto afterRestore;
+    } else if (res == "ERROR" or res == "ERROR\r" or res == "ERROR\r\n"){
+      goto restore;
+    } else {
+      goto restoreRead;
+    }
+  }
+  afterRestore:
   //delay(5000);
   SendCommand("AT+CWMODE=1", "OK");
+  conn:
   SendCommand("AT+CWJAP=\"Pantheon_WorkShop\",\"22029322Yan\"", "OK");
-  delay(15000);
+  connRead:
+  while(WIFI_SERIAL.available()){
+    Serial.println("Reading data");
+    String res = WIFI_SERIAL.readString();
+    if(res == "GOT IP" or res == "GOT IP\r" or res == "GOT IP\r\n" or res == "GOT IP\n"){
+      goto afterconn;
+    } else if (res == "ERROR" or res == "ERROR\r" or res == "ERROR\r\n"){
+      goto conn;
+    } else {
+      goto connRead;
+    }
+  }
+  afterconn:
   SendCommand("AT+CIPMUX=0", "OK");
-  //char result[250];
-//  delay(10000);
-//  strcat(result, "AT+CIPSTART=TCP,");
-//  strcat(result, IP);
-//  strcat(result, ",");
-  //strcat(result,"10596");
-  SendCommand("AT+CIPSTART=\"TCP\",\"10.0.0.13\",10596", "OK");
-  //delay(1000);
-  //SendCommand("AT+CIPSTART=\"TCP\",\"10.0.0.13\",10596", "OK");
-  //delay(1000);
-  //SendCommand("AT+CIPSTART=\"TCP\",\"10.0.0.13\",10596", "OK");
-  //delay(1000);
-  //SendCommand("AT+CIPSTART=\"TCP\",\"10.0.0.13\",10596", "OK");
+  SendCommand("AT+CIPSTART=\"TCP\"," + IP + "," + PORT, "OK");
   SendCommand("AT+CIPSENDEX=1024", ">");
-  delay(1000);
-  WIFI_SERIAL.write("wifi connected\0");
+  WIFI_SERIAL.println("wifi connected\0");
   SendCommand("AT+CIPCLOSE","OK");
 }
 
