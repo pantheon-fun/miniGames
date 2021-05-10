@@ -1,9 +1,9 @@
 #include<SoftwareSerial.h>
 
 SoftwareSerial WIFI_SERIAL(8, 9);
-#define TIMEOUT 5000 
-String IP = "10.0.0.13"
-String PORT = "10596"
+#define TIMEOUT 1500 
+String IP = "\"10.0.0.13\"";
+String PORT = "10596";
 
 void setup() {
   String reply;
@@ -19,39 +19,57 @@ void setup() {
     Serial.println("Reading data");
     String res = WIFI_SERIAL.readString();
     if(res == "OK" or res == "OK\r" or res == "OK\r\n" or res == "OK\n"){
+      Serial.print("Goto afterRestore");
       goto afterRestore;
     } else if (res == "ERROR" or res == "ERROR\r" or res == "ERROR\r\n"){
+      Serial.print("Goto restore");
       goto restore;
     } else {
+      Serial.print("Goto restoreRead");
       goto restoreRead;
     }
   }
   afterRestore:
   //delay(5000);
   SendCommand("AT+CWMODE=1", "OK");
-  conn:
   SendCommand("AT+CWJAP=\"Pantheon_WorkShop\",\"22029322Yan\"", "OK");
-  connRead:
+  delay(5000);
+  SendCommand("AT+CIPMUX=0", "OK");
+  tcp:
+  SendCommand("AT+CIPSTART=\"TCP\"," + IP + "," + PORT, "OK");
+  tcpRead:
   while(WIFI_SERIAL.available()){
-    Serial.println("Reading data");
     String res = WIFI_SERIAL.readString();
-    if(res == "GOT IP" or res == "GOT IP\r" or res == "GOT IP\r\n" or res == "GOT IP\n"){
-      goto afterconn;
+    if(res == "OK" or res == "OK\r" or res == "OK\r\n"){
+      Serial.println("Connected to TCP");
+      goto afterTcp;
     } else if (res == "ERROR" or res == "ERROR\r" or res == "ERROR\r\n"){
-      goto conn;
+      goto tcp;
     } else {
-      goto connRead;
+      goto tcpRead;
     }
   }
-  afterconn:
-  SendCommand("AT+CIPMUX=0", "OK");
-  SendCommand("AT+CIPSTART=\"TCP\"," + IP + "," + PORT, "OK");
-  SendCommand("AT+CIPSENDEX=1024", ">");
-  WIFI_SERIAL.println("wifi connected\0");
+  afterTcp:
+  SendCommand("AT+CIPMODE?", "");
+  //SendCommand("AT+CIPSENDEX=5", ">");
+  //delay(1500);
+  //Serial.println("Game1\0\r");
+  //WIFI_SERIAL.write("Game1\0\r\n");
+  TcpSend("Game number one");
+  //delay(1500);
+  TcpSend("Workin? Workin!");
+  delay(15000);
+  TcpSend("EOP");
   SendCommand("AT+CIPCLOSE","OK");
 }
 
 void loop() {
+}
+
+void TcpSend(String data){
+  SendCommand("AT+CIPSENDEX=1024", ">");
+  WIFI_SERIAL.println(String(data + "\\0\n"));
+  delay(500);
 }
 
 boolean echoFind(String keyword){
