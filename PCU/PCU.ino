@@ -1,29 +1,9 @@
-/*
-Displayed menu and path
-
-loop:
-
-1. Input:
-  how to do it nicely
-  if x -> path +-
-  if y -> menu +-
-  if pressed -> sendCommand
-
-
-2. Display
-  if new menu and path != displayed:
-    display
-
-
-
-*/
-
 #define pinY A0
 #define pinX A1
 #define pinSW 13
 
-//#include <Wire.h>
-#include <microLiquidCrystal_I2C.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
 #include "IRremote.h"
 
 const byte ADMIN_KILL           = 0x00;
@@ -49,9 +29,9 @@ const byte STUN_PLAYER          = 0x16;
 const byte DISARM_PLAYER        = 0x17;
 
 const byte favourites[4] = {NEW_GAME, START_GAME, ADMIN_KILL, FULL_AMMO};
-const String favouritesS[4] = {"New game", "Start game", "Admin kill", "Full ammo"};
+String favouritesS[4] = {"New game", "Start game", "Admin kill", "Full ammo"};
 const byte fun[4] = {EXPLODE_PLAYER, STUN_PLAYER, DISARM_PLAYER, TEST_SENSORS};
-const String funS[4] = {"Explode", "Stun", "Disarm", "Sensor test"};
+String funS[4] = {"Explode", "Stun", "Disarm", "Sensor test"};
 
 class Lt_transmitter {
 public:
@@ -71,8 +51,8 @@ public:
 
 Lt_transmitter trans;
 
-int current_menu = -1;
-int current_path = -1;
+int current_menu = 0;
+int current_path = 0;
 
 LiquidCrystal_I2C lcd (0x27, 16, 2);
 
@@ -88,10 +68,11 @@ void setup() {
   pinMode(pinSW, INPUT_PULLUP);
   pinMode(pinY, INPUT);
   pinMode(pinX, INPUT);
+  lcd.setCursor(0,0);
+  lcd.print(funS[0]);
 }
 
 void loop() {
-  delay(300);
   float y = analogRead(pinY);
   float x = analogRead(pinX);
   int sw = digitalRead(pinSW);
@@ -101,6 +82,9 @@ void loop() {
 
   for(int i = 0; i < 1; i++){
     if(sw == LOW){
+      while(digitalRead(pinSW) == LOW){
+        delay(150);
+      }
       if(current_menu == 0){
         trans.sendCommand(favourites[current_path]);
       } else {
@@ -108,19 +92,31 @@ void loop() {
       }
     }
     if(y < 150){
+      while(analogRead(pinY) < 150){
+        delay(150);
+      }
       new_menu--;
       if(new_menu < 0){new_menu = 0;}
       break;
     } else if(y > 850){
+      while(analogRead(pinY) > 850){
+        delay(150);
+      }
       new_menu++;
       if(new_menu > 1){new_menu = 1;}
       break;
     }
     if(x < 150){
+      while(analogRead(pinX) < 150){
+        delay(150);
+      }
       new_path--;
       if(new_path < 0){new_path = 0;}
       break;
     } else if(x > 850){
+      while(analogRead(pinX) > 850){
+        delay(150);
+      }
       new_path++;
       if(new_path > 3){new_path = 3;}
       break;
@@ -130,14 +126,22 @@ void loop() {
   if(current_menu != new_menu || current_path != new_path){
     lcd.clear();
     lcd.setCursor(0,0);
-    if(current_menu == 0){
-      lcd.print("  Favourites");
+    if(new_menu == 0){
+      lcd.print("Favourites");
+      current_menu = 0;
       lcd.setCursor(0,1);
-      lcd.print(favouritesS[current_path]);
+      lcd.print(favouritesS[new_path]);
     } else {
-      lcd.print("\\(0.0)/      FUN");
+      current_menu = 1;
+      lcd.print("FUN");
       lcd.setCursor(0,1);
-      lcd.print(funS[current_path]);
+      lcd.print(funS[new_path]);
     }
+    current_path = new_path;
+    Serial.print("Current menu:   ");
+    Serial.println(current_menu);
+    Serial.print("Current path:   ");
+    Serial.println(current_path);
+    Serial.println(funS[current_path]);
   }
 }
