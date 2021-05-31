@@ -1,6 +1,6 @@
 #define pinY A0
 #define pinX A1
-#define pinSW 13
+#define pinSW 12
 
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
@@ -36,6 +36,7 @@ String funS[4] = {"Explode", "Stun", "Disarm", "Sensor test"};
 class Lt_transmitter {
 public:
   Lt_transmitter(){
+    pinMode(3, OUTPUT);
     IrSender.begin(3, true);
     }
   void sendCommand(byte byte2){
@@ -96,14 +97,14 @@ void loop() {
         delay(150);
       }
       new_menu--;
-      if(new_menu < 0){new_menu = 0;}
+      if(new_menu < 0){new_menu = 1;}
       break;
     } else if(y > 850){
       while(analogRead(pinY) > 850){
         delay(150);
       }
       new_menu++;
-      if(new_menu > 1){new_menu = 1;}
+      if(new_menu > 1){new_menu = 0;}
       break;
     }
     if(x < 150){
@@ -111,37 +112,61 @@ void loop() {
         delay(150);
       }
       new_path--;
-      if(new_path < 0){new_path = 0;}
+      if(new_path < 0){new_path = 3;}
       break;
     } else if(x > 850){
       while(analogRead(pinX) > 850){
         delay(150);
       }
       new_path++;
-      if(new_path > 3){new_path = 3;}
+      if(new_path > 3){new_path = 0;}
       break;
     }
   }
 
+//  if(current_menu != new_menu || current_path != new_path){
+//    lcd.clear();
+//    lcd.setCursor(0,0);
+//    if(new_menu == 0){
+//      lcd.print("Favourites");
+//      current_menu = 0;
+//      lcd.setCursor(0,1);
+//      lcd.print(favouritesS[new_path]);
+//    } else {
+//      current_menu = 1;
+//      lcd.print("FUN");
+//      lcd.setCursor(0,1);
+//      lcd.print(funS[new_path]);
+//    }
+//    current_path = new_path;
+//    Serial.print("Current menu:   ");
+//    Serial.println(current_menu);
+//    Serial.print("Current path:   ");
+//    Serial.println(current_path);
+//    Serial.println(funS[current_path]);
+//  }
   if(current_menu != new_menu || current_path != new_path){
     lcd.clear();
-    lcd.setCursor(0,0);
     if(new_menu == 0){
-      lcd.print("Favourites");
-      current_menu = 0;
-      lcd.setCursor(0,1);
-      lcd.print(favouritesS[new_path]);
-    } else {
-      current_menu = 1;
-      lcd.print("FUN");
-      lcd.setCursor(0,1);
-      lcd.print(funS[new_path]);
+      for(int i = 0; i <= 3; i++){
+        lcd.setCursor(2,i);
+        lcd.print(favouritesS[i]);
+      }
+      lcd.setCursor(0, new_path);
+      lcd.print(">");
     }
+    
+    if(new_menu == 1){
+      for(int i = 0; i <= 3; i++){
+        lcd.setCursor(2,i);
+        lcd.print(funS[i]);
+      }
+      lcd.setCursor(0, new_path);
+      lcd.print(">");
+    }
+
     current_path = new_path;
-    Serial.print("Current menu:   ");
-    Serial.println(current_menu);
-    Serial.print("Current path:   ");
-    Serial.println(current_path);
-    Serial.println(funS[current_path]);
+    current_menu = new_menu;
   }
+
 }
