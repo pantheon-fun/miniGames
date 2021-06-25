@@ -1,48 +1,39 @@
-#define pinY A0
-#define pinX A1
-#define pinSW 12
+#define pinY A1
+#define pinX A2
+#define pinSW 4
 
-#include <Wire.h>
-#include <LiquidCrystal_I2C.h>
-#include "IRremote.h"
+#include <Adafruit_GFX.h>
+#include <Adafruit_ST7735.h>
+#include <SPI.h>
+#include <IRremote.h>
 
-const byte ADMIN_KILL           = 0x00;
-const byte PAUSE_UNPAUSE        = 0x01;
+#define TFT_CS 10
+#define TFT_RST 9
+#define TFT_DC 8
+
+Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
+
+const byte NEW_GAME             = 0x05;
 const byte START_GAME           = 0x02;
-const byte RESTORE_DEFAULTS     = 0x03;
-const byte RESPAWN              = 0x04;
-const byte NEW_GAME             = 0x05; //Restores AidKit
+const byte ADMIN_KILL           = 0x00;
 const byte FULL_AMMO            = 0x06;
-const byte END_GAME             = 0x07;
-const byte RESET_CLOCK          = 0x08;
-const byte CHANGE_COLOR         = 0x09; //Red - Blue, not Red to Red
-const byte INITIALIZE_PLAYER    = 0x0A;
 const byte EXPLODE_PLAYER       = 0x0B;
-const byte NEW_GAME_READY       = 0x0C;
-const byte FULL_HEALTH          = 0x0D;
-const byte FULL_ARMOR           = 0x0F;
-const byte FLAG_CAPTURE         = 0x11;
-const byte BOMB_DISARMED        = 0x12;
-const byte CLEAR_SCORES         = 0x14;
-const byte TEST_SENSORS         = 0x15;
 const byte STUN_PLAYER          = 0x16;
 const byte DISARM_PLAYER        = 0x17;
 
-const byte favourites[4] = {NEW_GAME, START_GAME, ADMIN_KILL, FULL_AMMO};
-String favouritesS[4] = {"New game", "Start game", "Admin kill", "Full ammo"};
-const byte fun[4] = {EXPLODE_PLAYER, STUN_PLAYER, DISARM_PLAYER, TEST_SENSORS};
-String funS[4] = {"Explode", "Stun", "Disarm", "Sensor test"};
+String menus[7] = {"New game", "Start gm", "Kill", "Ammo", "Explode", "Stun", "Disarm"};
+byte menuc[7] = {NEW_GAME, START_GAME, ADMIN_KILL, FULL_AMMO, EXPLODE_PLAYER, STUN_PLAYER, DISARM_PLAYER};
 
-class Lt_transmitter {
+class transmitter {
 public:
-  Lt_transmitter(){
-    pinMode(3, OUTPUT);
-    IrSender.begin(3, true);
-    }
-  void sendCommand(byte byte2){
+  transmitter(){
+    pinMode(2, OUTPUT);
+    IrSender.begin(2, true);
+  }
+  void sendCmd(byte b){
     unsigned long res = 0x83;
     res <<= 8;
-    res |= byte2;
+    res |= b;
     res <<=8;
     res |= 0xE8;
     IrSender.sendSony(res, 24);
@@ -50,123 +41,80 @@ public:
 };
 
 
-Lt_transmitter trans;
-
-int current_menu = 0;
-int current_path = 0;
-
-LiquidCrystal_I2C lcd (0x27, 16, 2);
-
-void setup() {
-  // put your setup code here, to run once:
+void setup(){
   Serial.begin(9600);
-  lcd.init();
-  lcd.backlight();
-  lcd.setCursor(0,0);
-  lcd.print("Hi, I am PCU!");
-  lcd.setCursor(0, 1);
-  lcd.print("    PANTHEON");
+  Serial.println("Started");
+  tft.initR(INITR_144GREENTAB);
+  tft.fillScreen(ST77XX_BLACK);
+  tft.fillRect(15, 35, 8, 45, ST77XX_RED);
+  tft.fillRect(30, 25, 8, 55, ST77XX_WHITE);
+  tft.fillRect(45, 15, 8, 65, ST77XX_WHITE);
+  tft.fillRect(60, 5, 8, 75, ST77XX_WHITE);
+  tft.fillRect(75, 15, 8, 65, ST77XX_WHITE);
+  tft.fillRect(90, 25, 8, 55, ST77XX_WHITE);
+  tft.fillRect(105, 35, 8, 45, ST77XX_RED);
+  tft.setCursor(17,95);
+  tft.setTextColor(ST77XX_WHITE);
+  tft.setTextSize(2);
+  tft.print("PANTHEON");
+  delay(1000);
+  tft.fillScreen(ST77XX_BLACK);
+  for(int i = 0; i < 7; i++){
+      tft.setCursor(17, 5+17*i);
+      tft.print(menus[i]);
+  }
+  tft.setTextColor(ST77XX_RED);
+  Serial.println("Ended setup");
   pinMode(pinSW, INPUT_PULLUP);
-  pinMode(pinY, INPUT);
-  pinMode(pinX, INPUT);
-  lcd.setCursor(0,0);
-  lcd.print(funS[0]);
 }
 
-void loop() {
-  float y = analogRead(pinY);
-  float x = analogRead(pinX);
-  int sw = digitalRead(pinSW);
-  int new_menu = current_menu;
-  int new_path = current_path;
+int current = -1;
+int new_m = 0;
+transmitter trans;
 
-
+void loop(){
+  //x0 = 17
+  //9 букв в одной строке
+  //7 строк
   for(int i = 0; i < 1; i++){
-    if(sw == LOW){
-      while(digitalRead(pinSW) == LOW){
+    if(digitalRead(pinSW) == LOW){
+      tft.setCursor(0, 5+17*current);
+      tft.setTextColor(ST77XX_GREEN);
+      tft.print("#");
+      do{
+        trans.sendCmd(menuc[current]);
+        Serial.println(menus[current]);
         delay(150);
-      }
-      if(current_menu == 0){
-        trans.sendCommand(favourites[current_path]);
-      } else {
-        trans.sendCommand(fun[current_path]);
-      }
+      }while(digitalRead(pinSW) == LOW);
+      tft.setTextColor(ST77XX_RED);
+      tft.fillRect(0, 5+17*current, 12, 17, ST77XX_BLACK);
+      tft.setCursor(0, 5+17*current);
+      tft.print(">");
     }
-    if(y < 150){
-      while(analogRead(pinY) < 150){
-        delay(150);
+    if(analogRead(pinY) < 150){
+      new_m++;
+      if(new_m > 6){new_m = 0;}
+      while (analogRead(pinY) < 150){
+        delay(10);
       }
-      new_menu--;
-      if(new_menu < 0){new_menu = 1;}
-      break;
-    } else if(y > 850){
-      while(analogRead(pinY) > 850){
-        delay(150);
-      }
-      new_menu++;
-      if(new_menu > 1){new_menu = 0;}
       break;
     }
-    if(x < 150){
-      while(analogRead(pinX) < 150){
-        delay(150);
+    if(analogRead(pinY) > 850){
+      new_m--;
+      if(new_m < 0){new_m = 6;}
+      while (analogRead(pinY) > 850){
+        delay(10);
       }
-      new_path--;
-      if(new_path < 0){new_path = 3;}
-      break;
-    } else if(x > 850){
-      while(analogRead(pinX) > 850){
-        delay(150);
-      }
-      new_path++;
-      if(new_path > 3){new_path = 0;}
       break;
     }
   }
 
-//  if(current_menu != new_menu || current_path != new_path){
-//    lcd.clear();
-//    lcd.setCursor(0,0);
-//    if(new_menu == 0){
-//      lcd.print("Favourites");
-//      current_menu = 0;
-//      lcd.setCursor(0,1);
-//      lcd.print(favouritesS[new_path]);
-//    } else {
-//      current_menu = 1;
-//      lcd.print("FUN");
-//      lcd.setCursor(0,1);
-//      lcd.print(funS[new_path]);
-//    }
-//    current_path = new_path;
-//    Serial.print("Current menu:   ");
-//    Serial.println(current_menu);
-//    Serial.print("Current path:   ");
-//    Serial.println(current_path);
-//    Serial.println(funS[current_path]);
-//  }
-  if(current_menu != new_menu || current_path != new_path){
-    lcd.clear();
-    if(new_menu == 0){
-      for(int i = 0; i <= 3; i++){
-        lcd.setCursor(2,i);
-        lcd.print(favouritesS[i]);
-      }
-      lcd.setCursor(0, new_path);
-      lcd.print(">");
-    }
-    
-    if(new_menu == 1){
-      for(int i = 0; i <= 3; i++){
-        lcd.setCursor(2,i);
-        lcd.print(funS[i]);
-      }
-      lcd.setCursor(0, new_path);
-      lcd.print(">");
-    }
-
-    current_path = new_path;
-    current_menu = new_menu;
+  if(current != new_m){
+    tft.setCursor(0, 5+17*current);
+    tft.print(" ");
+    tft.fillRect(0, 5+17*current, 11, 14, ST77XX_BLACK);
+    tft.setCursor(0, 5+17*new_m);
+    tft.print(">");
+    current = new_m;
   }
-
 }
