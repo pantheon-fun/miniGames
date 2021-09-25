@@ -9,8 +9,8 @@
  *  2: starts shooting for DELAY on button press
  */
 
-#define FIRST   0xA0
-#define SECOND  50
+#define FIRST   0x73
+#define SECOND  0b00100100 //0bttdddd00 -> tt - team dddd - damage
 #define LED_PIN 13
 #define BTN     8
 
